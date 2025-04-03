@@ -6,13 +6,17 @@ import requests
 import json
 import uvicorn
 import threading
+import os
+
 # FastAPI app initialization
 app = FastAPI()
+
 # Set your Azure OpenAI API key and endpoint
-api_key = "2REOt9aAX9oB5DvGFPDY9apS4sFbHXkf677fzBzD5hdEQfFdAgfWJQQJ99BDACYeBjFXJ3w3AAABACOGWaX0"
-endpoint = "https://mychatbotservice2025.openai.azure.com/"
+api_key = os.getenv("2REOt9aAX9oB5DvGFPDY9apS4sFbHXkf677fzBzD5hdEQfFdAgfWJQQJ99BDACYeBjFXJ3w3AAABACOGWaX0")
+endpoint = os.getenv("https://mychatbotservice2025.openai.azure.com/")
 model = "gpt-4"
 api_version = "2025-01-01-preview"  # Example API version, change as necessary
+
 def query_openai(prompt: str):
     url = f"{endpoint}/openai/deployments/{model}/chat/completions?api-version={api_version}"
     headers = {
@@ -36,6 +40,7 @@ def query_openai(prompt: str):
 class ChatRequest(BaseModel):
     prompt: str
 # FastAPI route to handle chat requests
+
 @app.post("/chat/")
 async def chat(request: ChatRequest):
     prompt = request.prompt
