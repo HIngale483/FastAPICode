@@ -52,7 +52,7 @@ async def chat(request: ChatRequest):
     return {"response": openai_response['choices'][0]['message']['content']}
 # Function to run the Uvicorn server
 def run_uvicorn():
-    uvicorn.run(app, host="127.0.0.1", port=8003)  # Use port 8002 if 8001 is unavailable
+    uvicorn.run(app, host="127.0.0.1", port=8000)  # Use port 8002 if 8001 is unavailable
 # Start Uvicorn server in a new thread
 thread = threading.Thread(target=run_uvicorn)
 thread.start()
@@ -62,7 +62,7 @@ thread.start()
 
 import requests
 # Test the FastAPI chat API on a different port (8002)
-url = "http://127.0.0.1:8003/chat/"
+url = "http://127.0.0.1:8000/chat/"
 # data = {"prompt": "Hello, how are you?"}
 data = {"prompt": "What is the capital of France?"}
 response = requests.post(url, json=data)
